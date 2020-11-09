@@ -8,8 +8,8 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "email": "zhitingLu@outlook.com",
-    "password": "234325"
+  
+   "password": "12133"
 }
 
 ###  Refresh Token Route
