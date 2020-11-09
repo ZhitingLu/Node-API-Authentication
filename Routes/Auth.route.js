@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const createError = require('http-errors');
+const User = require('../Models/User.model');
 
 // http://localhost:5000/auth/register
 // http://localhost:5000/auth/login
@@ -7,7 +9,21 @@ const router = express.Router();
 // http://localhost:5000/auth/refresh-token
 
 router.post('/register', async (req, res, next) => {
-    res.send("register route");
+    try {
+        const {email, password} = req.body;
+        if (!email || !password) {
+            throw createError.BadRequest('Email or password is missing');
+    };
+        const doesExist= await User.findOne({email: email})
+        if (doesExist) throw createError.Conflict(`${email} is already been registered!`);
+        const user = new User({email, password});
+        const savedUser = await user.save();
+
+        res.send(savedUser);
+        
+    } catch(error) {
+        next(error);
+    }
 });
 
 router.post('/login', async (req, res, next) => {

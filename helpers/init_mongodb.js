@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017', {
     dbName: 'auth_api',
     useNewUrlParser: true,
-    useUnifiedTopology: true   
+    useUnifiedTopology: true,
+    useCreateIndex: true
 })
 .then(() => {
     console.log('mongodb connected.');
