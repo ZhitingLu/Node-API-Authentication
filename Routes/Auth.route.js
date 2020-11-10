@@ -3,6 +3,7 @@ const router = express.Router();
 const createError = require('http-errors');
 const User = require('../Models/User.model');
 const { authSchema } = require('../helpers/validation_schema');
+const { signAccessToken } = require('../helpers/jwt.helper');
 
 // http://localhost:5000/auth/register
 // http://localhost:5000/auth/login
@@ -27,9 +28,13 @@ router.post('/register', async (req, res, next) => {
         // const user = new User({ email, password });
         const user = new User(result); // here we can simply use result as it contains the whole req.body : {email, password}
 
+        //saving a user
         const savedUser = await user.save();
+        //res.send(savedUser);
 
-        res.send(savedUser);
+        const accessToken = await signAccessToken(savedUser.id); // using await because signAccessToken function is returning a promise
+        //res.send(accessToken);
+        res.send({accessToken}); // this way we don't just send back the access token but a json response
 
     } catch (error) {
         if (error.isJoi === true) error.status = 422; // unprocessable entity error: the sever understands the content type of the entity but is unable to process it
