@@ -39,7 +39,7 @@ UserSchema.post('save', async function(next) {
     }
 });
 
-
+//                          mongodb will automatically change 'user' to plural (users)
 const User = mongoose.model('user', UserSchema);
 
 module.exports = User;

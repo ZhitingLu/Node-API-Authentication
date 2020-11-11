@@ -11,7 +11,7 @@ const app = express();
 
 app.use(morgan('dev'));
 // app.use(express.json()); express.json() didn't work
-// app.use(express.urlencoded({ extented: true});
+// app.use(express.urlencoded({ extended: true});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
     })
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
     console.log(`Sever running on the port ${PORT}`);
