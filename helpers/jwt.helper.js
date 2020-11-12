@@ -1,8 +1,8 @@
 const JWT = require('jsonwebtoken');
 const createError = require('http-errors');
 // const {resolve} = require('path');
-require('dotenv').config({ path: `/${__dirname}/.env`});
-
+// require('dotenv').config({ path: `/${__dirname}/.env`});
+// require('dotenv');
 
 module.exports = {
     signAccessToken: (userId) => {
