@@ -24,15 +24,28 @@ module.exports = {
                 // since it's an internal server error, we shouldn't pass the below error to the client 
                 // we should pass an internet error instead 
 
-               // if (err) reject(err)
+                // if (err) reject(err)
                 if (err) {
                     console.log(err.message);
                     reject(createError.InternalServerError());
                     return;
                 };
-                
+
                 resolve(token);
             });
         });
+    },
+    verifyAccessToken: (req, res, next) => {
+        if (!req.headers['authorization']) return next(createError.Unauthorized());  // verifying if the authorization is present in the headers
+        const authHeader = req.headers['authorization']; // header: bearer + access token 
+        const bearerToken = authHeader.split(' '); 
+        const token = bearerToken[1]; //actual token
+        JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+            if (err) {
+                return next(createError.Unauthorized());
+            }
+            req.payload = payload;
+            next();
+        })
     }
 };

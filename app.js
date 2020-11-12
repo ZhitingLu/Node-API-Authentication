@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 require('./helpers/init_mongodb');
+const { verifyAccessToken } = require('./helpers/jwt.helper');
 
 const AuthRoute = require('./Routes/Auth.route');
 
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
 
-app.get('/', async(req, res, next) => {
+app.get('/', verifyAccessToken, async(req, res, next) => {
     res.send("Hello");
 });
 
