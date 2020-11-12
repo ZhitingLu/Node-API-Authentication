@@ -1,14 +1,22 @@
+
 GET http://localhost:5000
 
 ### Login Route
 POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+   "email": "laura3@gmail.com",
+   "password": "12133"
+}
+
 
 ###  Register Route
 POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-   "email": "laura11@gmail.com",
+   "email": "laura3@gmail.com",
    "password": "12133"
 }
 

@@ -10,7 +10,7 @@ module.exports = {
             const payload = {
                 // name: "Seth",
                 // exp: new Date()  Here you have to manipulate the time 
-                //iss: "amazing.com",
+                // iss: "amazing.com",
                 // aud: userId,
             };
             const secret = process.env.ACCESS_TOKEN_SECRET;
@@ -20,7 +20,17 @@ module.exports = {
                 audience: userId,
             };
             JWT.sign(payload, secret, options, (err, token) => {
-                if (err) reject(err)
+                // fix an error here: whenever we sign a jwt / access token, there might an error from generating the jwt
+                // since it's an internal server error, we shouldn't pass the below error to the client 
+                // we should pass an internet error instead 
+
+               // if (err) reject(err)
+                if (err) {
+                    console.log(err.message);
+                    reject(createError.InternalServerError());
+                    return;
+                };
+                
                 resolve(token);
             });
         });

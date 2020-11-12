@@ -31,6 +31,14 @@ UserSchema.pre('save', async function(next) { // this middleware is called befor
     }
 });
 
+UserSchema.methods.isValidPassword = async function (password) {  // incoming parameter from the user
+    try {
+        return await bcrypt.compare(password, this.password);   
+    } catch (error) {
+        throw error;
+    }
+}
+
 UserSchema.post('save', async function(next) {
     try {
         console.log('Called after saving a user')
