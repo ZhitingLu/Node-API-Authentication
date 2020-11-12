@@ -15,7 +15,7 @@ module.exports = {
             };
             const secret = process.env.ACCESS_TOKEN_SECRET;
             const options = {
-                expiresIn: "15s",
+                expiresIn: "1h",
                 issuer: "amazing.com",
                 audience: userId,
             };
@@ -53,5 +53,29 @@ module.exports = {
             req.payload = payload;
             next();
         })
-    }
+    },
+    signRefreshToken: (userId) => {
+        return new Promise((resolve, reject) => {
+            const payload = {
+                // name: "Seth",
+                // exp: new Date()  Here you have to manipulate the time 
+                // iss: "amazing.com",
+                // aud: userId,
+            };
+            const secret = process.env.REFRESH_TOKEN_SECRET;
+            const options = {
+                expiresIn: "1y",
+                issuer: "amazing.com",
+                audience: userId,
+            };
+            JWT.sign(payload, secret, options, (err, token) => {
+                if (err) {
+                    console.log(err.message);
+                    reject(createError.InternalServerError());
+                };
+
+                resolve(token);
+            });
+        });
+    },
 };
