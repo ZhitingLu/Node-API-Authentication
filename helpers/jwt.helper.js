@@ -1,8 +1,8 @@
 const JWT = require('jsonwebtoken');
 const createError = require('http-errors');
-// const {resolve} = require('path');
-// require('dotenv').config({ path: `/${__dirname}/.env`});
-// require('dotenv');
+const client = require('./init_redis');  // ro store the refresh token
+
+
 
 module.exports = {
     signAccessToken: (userId) => {
@@ -73,18 +73,37 @@ module.exports = {
                     console.log(err.message);
                     reject(createError.InternalServerError());
                 };
-
-                resolve(token);
+               
+                // userId as key, token as value. It will expire in one year
+                client.SET(userId, token, 'EX', 365*24*60*60, (err, reply) => {
+                    if (err) {
+                        console.log(err.message)
+                        reject(createError.InternalServerError());
+                        return;
+                    }
+                    resolve(token);
+                })
             });
         });
     },
     verifyRefreshToken: (refreshToken) => {
         return new Promise((resolve, reject) => {
-            JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, payload) => {
+            JWT.verify(
+                refreshToken, 
+                process.env.REFRESH_TOKEN_SECRET, 
+                (err, payload) => {
                 if (err) return reject(createError.Unauthorized());
                 const userId = payload.aud;
-
-                resolve(userId);
+                client.GET(userId, (err, result) => {
+                    if (err) {
+                        console.log(err.message);
+                        reject(createError.InternalServerError());
+                        return;
+                    }
+                    if (refreshToken === result) return resolve(userId); // result is coming from the key
+                    reject(createError.Unauthorized());
+                })
+                // resolve(userId);
             })
         })
     },
