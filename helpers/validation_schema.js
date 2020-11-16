@@ -10,6 +10,7 @@ const authSchema = Joi.object({
     password: Joi.string()
     .min(5)
     .required()
+    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 });
 
 module.exports ={
