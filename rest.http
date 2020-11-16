@@ -1,7 +1,11 @@
 
 GET http://localhost:5000 
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDUyMDY1NjIsImV4cCI6MTYwNTIxMDE2MiwiYXVkIjoiNWZhZDdjYWUzYjJjOTc5ZjcwNzFlODQyIiwiaXNzIjoiYW1hemluZy5jb20ifQ.BbfMeCcnUF73sn06nuxvJZgYkSVKtzg15eZJUE4N1LU
 
+=======
+Authorization: Bearer 
+>>>>>>> 8deedb303b358a724483dcbc7b861eb626cbbcfd
 ### Login Route
 POST http://localhost:5000/auth/login
 Content-Type: application/json
@@ -26,8 +30,7 @@ POST http://localhost:5000/auth/refresh-token
 Content-Type: application/json
 
 {
-   "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDUyMDY1NjIsImV4cCI6MTYzNjc2NDE2MiwiYXVkIjoiNWZhZDdjYWUzYjJjOTc5ZjcwNzFlODQyIiwiaXNzIjoiYW1hemluZy5jb20ifQ.0Wkg0mkWLDNrtUSU43V1tF8pKdx9G-3GxIZHE88OaS4"
-}
+   "refreshToken" : 
 
 ### Logout Route
 DELETE http://localhost:5000/auth/logout
