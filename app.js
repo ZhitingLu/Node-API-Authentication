@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 
 app.get('/', verifyAccessToken, async(req, res, next) => {
-    res.send("Hello");
+    res.send("Hello from Express");
 });
 
 app.use('/auth', AuthRoute);

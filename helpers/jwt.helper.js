@@ -97,11 +97,11 @@ module.exports = {
                 client.GET(userId, (err, result) => {
                     if (err) {
                         console.log(err.message);
-                        reject(createError.InternalServerError());
+                        reject(createError.InternalServerError()); 
                         return;
                     }
                     if (refreshToken === result) return resolve(userId); // result is coming from the key
-                    reject(createError.Unauthorized());
+                    reject(createError.Unauthorized()); 
                 })
                 // resolve(userId);
             })
