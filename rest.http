@@ -1,8 +1,7 @@
 
 GET http://localhost:5000 
 <<<<<<< HEAD
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDUyMDY1NjIsImV4cCI6MTYwNTIxMDE2MiwiYXVkIjoiNWZhZDdjYWUzYjJjOTc5ZjcwNzFlODQyIiwiaXNzIjoiYW1hemluZy5jb20ifQ.BbfMeCcnUF73sn06nuxvJZgYkSVKtzg15eZJUE4N1LU
-
+Authorization: Bearer
 =======
 Authorization: Bearer 
 >>>>>>> 8deedb303b358a724483dcbc7b861eb626cbbcfd
